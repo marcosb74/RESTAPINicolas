@@ -15,6 +15,9 @@ mongoose.connect(process.env.DB_CONNECTION, {
 //Creating the Server
 const app = express();
 
+//Setting up the port
+const port = process.env.PORT || 5500;
+
 //Enabling bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,4 +25,4 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", routes());
 
 //Setting the port to listen
-app.listen(process.env.PORT);
+app.listen(port);
