@@ -20,11 +20,12 @@ exports.getClients = async (req, res) => {
   }
 };
 
-exports.getClientById = async (req, res) => {
+exports.getClientById = async (req, res, next) => {
   const client = await Clientes.findById(req.params.id);
 
   if (!client) {
     res.json({ message: "Client Not Found" }).status(404);
+    return next();
   }
   res.json(client).status(200);
 };
