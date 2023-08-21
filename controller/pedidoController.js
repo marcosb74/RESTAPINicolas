@@ -5,9 +5,9 @@ exports.newPedido = async (req, res, next) => {
   const pedido = new Pedidos(req.body);
   try {
     await pedido.save();
-    res.json({ mensaje: "A new order has been registered" });
+    res.status(201).json({ mensaje: "A new order has been registered" });
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
 
@@ -17,9 +17,9 @@ exports.getPedidos = async (req, res, next) => {
       path: "pedido.producto",
       model: "Productos",
     });
-    res.json(pedidos).status(200);
+    res.json(pedidos);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
 
@@ -37,7 +37,7 @@ exports.getPedidoById = async (req, res, next) => {
     }
     res.json(pedido);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
 
@@ -57,9 +57,9 @@ exports.updatePedidoById = async (req, res, next) => {
         path: "pedido.producto",
         model: "Productos",
       });
-    res.json(pedido).status(200);
+    res.json(pedido);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
     next();
   }
 };
@@ -67,9 +67,9 @@ exports.updatePedidoById = async (req, res, next) => {
 exports.deletePedidoById = async (req, res, next) => {
   try {
     await Pedidos.findOneAndDelete({ _id: req.params.id });
-    res.json({ message: "Order Deleted Successfully" }).status(204);
+    res.status(204).json({ message: "Order Deleted Successfully" });
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
     next();
   }
 };
