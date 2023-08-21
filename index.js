@@ -4,6 +4,9 @@ const routes = require("./routes/index.js");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
+//Importing CORS
+const cors = require("cors");
+
 dotenv.config({ path: ".env" });
 
 //Connecting mongoDb
@@ -21,6 +24,9 @@ const port = process.env.PORT || 5500;
 //Enabling bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//Enabling CORS
+app.use(cors());
 
 app.use("/", routes());
 

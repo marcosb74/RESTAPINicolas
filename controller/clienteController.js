@@ -5,9 +5,10 @@ exports.newClient = async (req, res) => {
 
   try {
     await client.save();
-    res.json({ message: "New Client added successfully" }).status(201);
+    res.status(201).json({ message: "New Client added successfully" });
   } catch (error) {
     console.log(error);
+    res.status(500).send(error);
   }
 };
 
@@ -16,7 +17,7 @@ exports.getClients = async (req, res) => {
     const clients = await Clientes.find({});
     res.json(clients).status(200);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
 
@@ -24,10 +25,10 @@ exports.getClientById = async (req, res, next) => {
   const client = await Clientes.findById(req.params.id);
 
   if (!client) {
-    res.json({ message: "Client Not Found" }).status(404);
+    res.status(404).json({ message: "Client Not Found" });
     return next();
   }
-  res.json(client).status(200);
+  res.json(client);
 };
 
 exports.updateClientById = async (req, res) => {
@@ -37,8 +38,9 @@ exports.updateClientById = async (req, res) => {
       req.body,
       { new: true }
     );
-    res.json(client).status(200);
+    res.json(client);
   } catch (error) {
+    res.status(500).send(error);
     console.log(error);
   }
 };
@@ -46,8 +48,8 @@ exports.updateClientById = async (req, res) => {
 exports.deleteClientById = async (req, res) => {
   try {
     await Clientes.findOneAndDelete({ _id: req.params.id });
-    res.json({ message: "Client Deleted Successfully" }).status(204);
+    res.status(204).json({ message: "Client Deleted Successfully" });
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };

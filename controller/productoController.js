@@ -44,18 +44,18 @@ exports.newProduct = async (req, res) => {
       product.imagen = req.file.filename;
     }
     await product.save();
-    res.json({ message: "New Product Created Successfully" }).status(201);
+    res.status(201).json({ message: "New Product Created Successfully" });
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
 
 exports.getProducts = async (req, res, next) => {
   try {
     const products = await Productos.find({});
-    res.json(products).status(200);
+    res.json(products);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
 
@@ -64,12 +64,12 @@ exports.getProductById = async (req, res, next) => {
     const product = await Productos.findById(req.params.id);
     console.log(product);
     if (!product) {
-      res.json({ mensaje: "Product Not Found" }).status(404);
+      res.status(404).json({ mensaje: "Product Not Found" });
       return next();
     }
     res.json(product);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
 
@@ -92,17 +92,17 @@ exports.updateProductById = async (req, res) => {
       newProduct,
       { new: true }
     );
-    res.json(product).status(200);
+    res.json(product);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
 
 exports.deleteProductById = async (req, res) => {
   try {
     await Productos.findOneAndDelete({ _id: req.params.id });
-    res.json({ message: "Product Deleted Successfully" }).status(204);
+    res.status(204).json({ message: "Product Deleted Successfully" });
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
