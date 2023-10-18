@@ -30,5 +30,8 @@ app.use(cors());
 
 app.use("/", routes());
 
+//Public Folder Setup
+app.use(express.static("uploads"));
+
 //Setting the port to listen
 app.listen(port);

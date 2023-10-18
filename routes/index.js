@@ -20,6 +20,7 @@ module.exports = function () {
   );
   router.get("/productos", productoController.getProducts);
   router.get("/productos/:id", productoController.getProductById);
+  router.post("/productos/busqueda/:query", productoController.searchProducts);
   router.put(
     "/productos/:id",
     productoController.subirArchivo,

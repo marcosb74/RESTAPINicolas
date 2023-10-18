@@ -59,6 +59,16 @@ exports.getProducts = async (req, res, next) => {
   }
 };
 
+exports.searchProducts = async (req, res, next) => {
+  try {
+    const { query } = req.params;
+    const product = await Productos.find({ nombre: new RegExp(query, "i") });
+    res.json(product);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 exports.getProductById = async (req, res, next) => {
   try {
     const product = await Productos.findById(req.params.id);
