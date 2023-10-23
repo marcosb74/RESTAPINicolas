@@ -3,6 +3,7 @@ const router = express.Router();
 const clienteController = require("../controller/clienteController.js");
 const productoController = require("../controller/productoController.js");
 const pedidoController = require("../controller/pedidoController.js");
+const usuarioController = require("../controller/usuarioController.js");
 
 module.exports = function () {
   //Defining Client Routes
@@ -34,5 +35,8 @@ module.exports = function () {
   router.get("/pedidos/:id", pedidoController.getPedidoById);
   router.put("/pedidos/:id", pedidoController.updatePedidoById);
   router.delete("/pedidos/:id", pedidoController.deletePedidoById);
+
+  router.post("/register", usuarioController.registerUser);
+  router.post("/login", usuarioController.authenticateUser);
   return router;
 };
