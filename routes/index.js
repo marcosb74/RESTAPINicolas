@@ -5,6 +5,9 @@ const productoController = require("../controller/productoController.js");
 const pedidoController = require("../controller/pedidoController.js");
 const usuarioController = require("../controller/usuarioController.js");
 
+//Middleware for Route Protection
+const auth = require("../middleware/auth.js");
+
 module.exports = function () {
   //Defining Client Routes
   router.post("/clientes", clienteController.newClient);
