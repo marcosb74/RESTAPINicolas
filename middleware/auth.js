@@ -5,10 +5,10 @@ module.exports = (req, res, next) => {
 
   if (!authHeader) {
     const error = new Error("Not Authenticated, No Token detected");
-    err.statusCode = 401;
-    throw err;
+    error.statusCode = 401;
+    throw error;
   }
-  const token = authHeader.split("")[1];
+  const token = authHeader.split(" ")[1];
   let checkToken;
   try {
     checkToken = jwt.verify(token, process.env.SECRET);
@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
     error.statusCode = 500;
     throw error;
   }
-  if (!revisarToken) {
+  if (!checkToken) {
     const error = new Error("Not Authenticated");
     error.statusCode = 403;
     throw error;

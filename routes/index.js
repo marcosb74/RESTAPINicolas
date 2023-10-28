@@ -10,34 +10,40 @@ const auth = require("../middleware/auth.js");
 
 module.exports = function () {
   //Defining Client Routes
-  router.post("/clientes", clienteController.newClient);
-  router.get("/clientes", clienteController.getClients);
-  router.get("/clientes/:id", clienteController.getClientById);
-  router.put("/clientes/:id", clienteController.updateClientById);
-  router.delete("/clientes/:id", clienteController.deleteClientById);
+  router.post("/clientes", auth, clienteController.newClient);
+  router.get("/clientes", auth, clienteController.getClients);
+  router.get("/clientes/:id", auth, clienteController.getClientById);
+  router.put("/clientes/:id", auth, clienteController.updateClientById);
+  router.delete("/clientes/:id", auth, clienteController.deleteClientById);
 
   // Defining Product Routes
   router.post(
     "/productos",
+    auth,
     productoController.subirArchivo,
     productoController.newProduct
   );
-  router.get("/productos", productoController.getProducts);
-  router.get("/productos/:id", productoController.getProductById);
-  router.post("/productos/busqueda/:query", productoController.searchProducts);
+  router.get("/productos", auth, productoController.getProducts);
+  router.get("/productos/:id", auth, productoController.getProductById);
+  router.post(
+    "/productos/busqueda/:query",
+    auth,
+    productoController.searchProducts
+  );
   router.put(
     "/productos/:id",
+    auth,
     productoController.subirArchivo,
     productoController.updateProductById
   );
-  router.delete("/productos/:id", productoController.deleteProductById);
+  router.delete("/productos/:id", auth, productoController.deleteProductById);
 
   //Defining Orders
-  router.post("/pedidos", pedidoController.newPedido);
-  router.get("/pedidos", pedidoController.getPedidos);
-  router.get("/pedidos/:id", pedidoController.getPedidoById);
-  router.put("/pedidos/:id", pedidoController.updatePedidoById);
-  router.delete("/pedidos/:id", pedidoController.deletePedidoById);
+  router.post("/pedidos", auth, pedidoController.newPedido);
+  router.get("/pedidos", auth, pedidoController.getPedidos);
+  router.get("/pedidos/:id", auth, pedidoController.getPedidoById);
+  router.put("/pedidos/:id", auth, pedidoController.updatePedidoById);
+  router.delete("/pedidos/:id", auth, pedidoController.deletePedidoById);
 
   router.post("/register", usuarioController.registerUser);
   router.post("/login", usuarioController.authenticateUser);
